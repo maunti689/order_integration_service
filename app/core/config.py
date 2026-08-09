@@ -12,7 +12,6 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     database_url: str = "postgresql+psycopg://orders:local-only-orders@postgres:5432/orders"
     celery_broker_url: str = "amqp://orders:local-only-orders@rabbitmq:5672//"
-    celery_result_backend: str = "redis://redis:6379/0"
     provider_base_url: str = "http://provider-mock:8081"
     provider_api_key: str = "local-only-provider-key"
     provider_webhook_secret: str = "local-only-webhook-secret"
