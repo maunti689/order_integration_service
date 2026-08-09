@@ -1,0 +1,60 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "order-integration-service"
+version = "1.0.0"
+description = "B2B-сервис надёжной передачи заказов внешнему поставщику"
+requires-python = ">=3.12"
+dependencies = [
+  "alembic==1.16.4",
+  "celery[redis]==5.5.3",
+  "fastapi==0.116.1",
+  "httpx==0.28.1",
+  "psycopg[binary]==3.2.9",
+  "pydantic-settings==2.10.1",
+  "sqlalchemy==2.0.41",
+  "uvicorn[standard]==0.35.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==8.4.1",
+  "pytest-cov==6.2.1",
+  "ruff==0.12.4",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app", "provider_mock"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = [
+  "integration: tests exercising the API and database together",
+  "postgresql: tests requiring PostgreSQL locking and concurrency semantics",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = [
+  "B008",
+  "UP017",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/conftest.py" = ["E402"]
+
+[tool.coverage.run]
+source = ["app"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 80

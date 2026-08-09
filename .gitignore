@@ -1,0 +1,13 @@
+.env
+.coverage
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+.venv/
+__pycache__/
+*.py[cod]
+*.sqlite3
+build/
+dist/
+*.egg-info/
+celerybeat-schedule*
